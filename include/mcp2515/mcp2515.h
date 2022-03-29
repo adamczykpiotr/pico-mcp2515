@@ -2,7 +2,10 @@
 #define _MCP2515_H_
 
 #include "can.h"
+
 #include "hardware/spi.h"
+#include "pico/time.h"
+#include "pico/stdlib.h"
 #include "boards/pico.h"
 
 /*
@@ -204,8 +207,7 @@ enum CAN_CLKOUT {
 };
 
 
-class MCP2515
-{
+class MCP2515 {
     public:
         enum ERROR {
             ERROR_OK        = 0,

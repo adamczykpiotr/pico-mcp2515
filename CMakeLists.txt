@@ -14,10 +14,16 @@ project(pico-mcp2515 C CXX ASM)
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
+add_executable(pico-mcp2515
+    # Library executables
+    include/mcp2515/mcp2515.cpp
 
-add_executable(pico-mcp2515 
-    pico-mcp2515.c
+    # Main executalbes
+    src/pico-mcp2515.cpp
 )
+
+# Add MCP2515 Lib
+target_include_directories(pico-mcp2515 PUBLIC include/)
 
 pico_set_program_name(pico-mcp2515 "pico-mcp2515")
 pico_set_program_version(pico-mcp2515 "0.1")
@@ -25,13 +31,9 @@ pico_set_program_version(pico-mcp2515 "0.1")
 pico_enable_stdio_uart(pico-mcp2515 0)
 pico_enable_stdio_usb(pico-mcp2515 1)
 
-# Add the standard library to the build
-target_link_libraries(pico-mcp2515 
-    pico_stdlib
-)
-
 # Add any user requested libraries
-target_link_libraries(pico-mcp2515 
+target_link_libraries(pico-mcp2515
+    pico_stdlib
     hardware_spi
 )
 
