@@ -31,7 +31,7 @@ target_link_libraries(pico-mcp2515
 )
 
 # Add any user requested libraries
-target_link_libraries(canbus
+target_link_libraries(pico-mcp2515 
     hardware_spi
 )
 
