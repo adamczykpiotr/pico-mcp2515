@@ -2,6 +2,23 @@ Raspberry Pi Pico MCP2515 CAN interface library
 ---------------------------------------------------------
 This Raspberry Pi Pico library is a ported & optimized version of the magnificent library [arduino-mcp2515](https://github.com/autowp/arduino-mcp2515) by [autowp](https://github.com/autowp).
 
+## Optimization
+
+This livrary was optimized to use SPI transfer of multiple bytes in a single function call. This is contrary to the original code where ```for``` loop was heavily used. Theese optimizations might seem insignificant as they shave only few microseconds each time but they surely add up. If the only goal of the microcontroller is to poll CAN-Bus frames, the speedup can reach from 22.8 to 41.7% depending on frame byte count!
+
+Benchmark used with frame polling:
+| Frame bytes | Before [µs] |	After [µs] | Speedup [%] |
+| ----------- | ----------- | ---------- | ----------- |
+| 0           | 35          |	29	       | 22.8        |
+| 1           | 37          |	29	       | 21.6        |
+| 2           | 39          |	30	       | 30.0        |
+| 3           | 41          |	31	       | 32.3        |
+| 4           | 43          |	32	       | 34.4        |
+| 5           | 45          |	33	       | 36.4        |
+| 6           | 47          |	34	       | 38.2        |
+| 7           | 49          |	35	       | 40.0        |
+| 8           | 51          |	36	       | 41.7        |
+| Average     | 43          |	31.9       | 33.0        |
 
 ----
 
