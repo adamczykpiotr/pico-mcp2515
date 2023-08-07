@@ -330,6 +330,8 @@ class MCP2515 {
             EFLG_EWARN  = (1<<0)
         };
 
+        static const uint8_t RST_PIN_NOT_USED = 0; // 0 denotes that the reset pin is not used
+
     private:
         static const uint8_t CANCTRL_REQOP = 0xE0;
         static const uint8_t CANCTRL_ABAT = 0x10;
@@ -536,6 +538,7 @@ class MCP2515 {
             uint8_t TX_PIN = PICO_DEFAULT_SPI_TX_PIN,
             uint8_t RX_PIN = PICO_DEFAULT_SPI_RX_PIN,
             uint8_t SCK_PIN = PICO_DEFAULT_SPI_SCK_PIN,
+            uint8_t PST_PIN = RST_PIN_NOT_USED,
             uint32_t _SPI_CLOCK = DEFAULT_SPI_CLOCK
         );
         ERROR reset(void);
