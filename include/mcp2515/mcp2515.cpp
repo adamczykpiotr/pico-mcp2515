@@ -12,7 +12,7 @@ const struct MCP2515::RXBn_REGS MCP2515::RXB[N_RXBUFFERS] = {
     {MCP_RXB1CTRL, MCP_RXB1SIDH, MCP_RXB1DATA, CANINTF_RX1IF}
 };
 
-MCP2515::MCP2515(spi_inst_t* CHANNEL, uint8_t CS_PIN, uint8_t TX_PIN, uint8_t RX_PIN, uint8_t SCK_PIN, uint32_t SPI_CLOCK)
+MCP2515::MCP2515(spi_inst_t* CHANNEL, uint8_t CS_PIN, uint8_t TX_PIN, uint8_t RX_PIN, uint8_t SCK_PIN, uint8_t RST_PIN, uint32_t SPI_CLOCK)
 {
     this->SPI_CHANNEL = CHANNEL;
     spi_init(this->SPI_CHANNEL, SPI_CLOCK);
@@ -26,6 +26,18 @@ MCP2515::MCP2515(spi_inst_t* CHANNEL, uint8_t CS_PIN, uint8_t TX_PIN, uint8_t RX
     gpio_set_dir(this->SPI_CS_PIN, GPIO_OUT);
 
     endSPI();
+
+    // Perform a hardware reset if a reset pin has been provided
+    if (RST_PIN != RST_PIN_NOT_USED) {
+        gpio_init(RST_PIN);
+        gpio_set_dir(RST_PIN, GPIO_OUT);
+
+        gpio_put(RST_PIN, 0);
+        sleep_ms(10);
+
+        gpio_put(RST_PIN, 1);
+        sleep_ms(10);
+    }	
 }
 
 inline void MCP2515::startSPI() {
