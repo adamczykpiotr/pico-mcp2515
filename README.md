@@ -4,7 +4,7 @@ This Raspberry Pi Pico library is a ported & optimized version of the magnificen
 
 ## Optimization
 
-This livrary was optimized to use SPI transfer of multiple bytes in a single function call. This is contrary to the original code where ```for``` loop was heavily used. Theese optimizations might seem insignificant as they shave only few microseconds each time but they surely add up. If the only goal of the microcontroller is to poll CAN-Bus frames, the speedup can reach roughly from 20 to 40% depending on frame byte count!
+This library was optimized to use SPI transfer of multiple bytes in a single function call. This is contrary to the original code where ```for``` loop was heavily used. Theese optimizations might seem insignificant as they shave only few microseconds each time but they surely add up. If the only goal of the microcontroller is to poll CAN-Bus frames, the speedup can reach roughly from 20 to 40% depending on frame byte count!
 
 Benchmark used with frame polling:
 | Frame bytes | Before [µs] |	After [µs] | Speedup [%] |
